@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <!-- Status bar color -->
+    <color name="smoothie_blue">#63A4C0</color>
+    <color name="smoothie_blue2">#75BCDA</color>
+
+    <color name="smoothie_purple">#686DBF</color>
+    <color name="smoothie_purple2">#5A5FAC</color>
+
+    <!-- Text color -->
+    <color name="text_h900">#CECECE</color>
+
+    <!-- Status bar color -->
+    <color name="background_darken">#2C2C35</color>
+    <color name="status_bar_color">#2C2C35</color>
+
+
+</resources>
