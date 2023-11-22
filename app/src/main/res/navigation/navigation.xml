@@ -6,7 +6,19 @@
     app:startDestination="@id/helloFragment2">
     <fragment
         android:id="@+id/helloFragment2"
-        android:name="com.furkanmulayim.gorseldenmetincikar.HelloFragment"
+        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.hello.HelloFragment"
         android:label="fragment_hello"
-        tools:layout="@layout/fragment_hello" />
+        tools:layout="@layout/fragment_hello" >
+        <action
+            android:id="@+id/action_helloFragment2_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.History.HistoryFragment"
+        android:label="HistoryFragment" >
+        <action
+            android:id="@+id/action_historyFragment_to_helloFragment2"
+            app:destination="@id/helloFragment2" />
+    </fragment>
 </navigation>

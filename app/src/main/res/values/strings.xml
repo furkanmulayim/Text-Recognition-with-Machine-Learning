@@ -10,4 +10,7 @@
     <string name="secenek_aciklama_2">Kopyalama zahmetine girmeyin. Otomatik kopayalasın</string>
     <string name="home_page">Home Page</string>
     <string name="history">History</string>
+
+    <string name="cek">Fotoğraf Çek</string>
+    <string name="yukle">Görsel Yükle</string>
 </resources>
