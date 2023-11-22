@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.furkanmulayim.gorseldenmetincikar.presentation.hello.HelloViewModel" />
@@ -104,7 +103,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/pager_back"
             android:paddingBottom="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/cekButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -252,12 +251,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/cekButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_fore"
-            android:fontFamily="@font/inter_extrabold"
+            android:fontFamily="@font/inter_medium"
             android:insetLeft="50dp"
             android:insetRight="50dp"
             android:text="@string/cek"
@@ -266,17 +265,17 @@
             app:icon="@drawable/scan"
             app:iconPadding="-8dp"
             app:iconTint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintBottom_toTopOf="@+id/yukleButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/yukleButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="35dp"
             android:background="@drawable/button_fore"
-            android:fontFamily="@font/inter_extrabold"
+            android:fontFamily="@font/inter_medium"
             android:insetLeft="50dp"
             android:text="@string/yukle"
             android:textColor="#E1E3FF"

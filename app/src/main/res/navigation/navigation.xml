@@ -12,13 +12,32 @@
         <action
             android:id="@+id/action_helloFragment2_to_historyFragment"
             app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_helloFragment2_to_cropFragment"
+            app:destination="@id/cropFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.History.HistoryFragment"
+        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.history.HistoryFragment"
         android:label="HistoryFragment" >
         <action
             android:id="@+id/action_historyFragment_to_helloFragment2"
+            app:destination="@id/helloFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/cropFragment"
+        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.crop.CropFragment"
+        android:label="CropFragment" >
+        <action
+            android:id="@+id/action_cropFragment_to_recognitionFragment"
+            app:destination="@id/recognitionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recognitionFragment"
+        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.recognize.RecognitionFragment"
+        android:label="RecognitionFragment" >
+        <action
+            android:id="@+id/action_recognitionFragment_to_helloFragment2"
             app:destination="@id/helloFragment2" />
     </fragment>
 </navigation>

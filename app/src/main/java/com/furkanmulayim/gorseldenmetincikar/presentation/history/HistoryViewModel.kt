@@ -1,13 +1,12 @@
-package com.furkanmulayim.gorseldenmetincikar.presentation.hello
+package com.furkanmulayim.gorseldenmetincikar.presentation.history
 
 import android.app.Application
 import android.view.View
-import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.furkanmulayim.gorseldenmetincikar.presentation.BaseViewModel
 import com.furkanmulayim.gorseldenmetincikar.utils.SharedPrefs
 
-class HelloViewModel(application: Application): BaseViewModel(application) {
+class HistoryViewModel(application: Application): BaseViewModel(application) {
 
     private var sp = SharedPrefs(getApplication())
 

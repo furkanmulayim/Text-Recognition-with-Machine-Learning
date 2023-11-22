@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Görselden Metin Çıkar</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="gorselden_metne">Görselden Metne</string>
     <string name="logo">logo</string>
@@ -8,9 +7,15 @@
     <string name="secenek_aciklama_1">Üçüncü taraf yazılımlarla paylaşmaz</string>
     <string name="secenek2">Görseldeki metni sizin için ayıklasın.</string>
     <string name="secenek_aciklama_2">Kopyalama zahmetine girmeyin. Otomatik kopayalasın</string>
-    <string name="home_page">Home Page</string>
-    <string name="history">History</string>
+    <string name="home_page">Ana Menü</string>
+    <string name="history">Geçmiş</string>
 
     <string name="cek">Fotoğraf Çek</string>
     <string name="yukle">Görsel Yükle</string>
+    <string name="izin">Bu Özellik İçin İzne İhtiyacımız Var..</string>
+    <string name="secilmedi">Görsel Seçilmedi!</string>
+    <string name="cekilmedi">Fotoğraf Çekilmedi!</string>
+    <string name="metin">Algılanan Metin</string>
+
+
 </resources>
