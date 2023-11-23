@@ -1,6 +1,8 @@
 package com.furkanmulayim.gorseldenmetincikar.presentation.recognize
 
-import android.app.ProgressDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -8,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.furkanmulayim.gorseldenmetincikar.R
 import com.furkanmulayim.gorseldenmetincikar.databinding.FragmentRecognitionBinding
+import com.furkanmulayim.gorseldenmetincikar.utils.showMessage
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
@@ -40,12 +44,12 @@ class RecognitionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getImageUri()
         recognizeTextFromImage(viewModel.parsUrl())
+        clickListener()
     }
-
 
     private fun getImageUri() {
         var imageUri = viewModel.parsUrl()
-        bulanikYap(imageUri,binding.buttonBackground)
+        bulanikYap(imageUri, binding.buttonBackground)
     }
 
     fun bulanikYap(url: Uri, imageView: ImageView) {
@@ -55,22 +59,47 @@ class RecognitionFragment : Fragment() {
 
     }
 
+    private fun clickListener() {
+        binding.backButton.setOnClickListener {
+            navigate(R.id.action_recognitionFragment_to_helloFragment2)
+        }
+        binding.copyButton.setOnClickListener {
+            copyText()
+        }
+    }
+
+    private fun navigate(action: Int) {
+        viewModel.navigate(requireView(), action)
+    }
+
+    private fun copyText() {
+        val clipboardManager =
+            activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", binding.recognizedTextEt.text)
+        clipboardManager.setPrimaryClip(clipData)
+        Toast.makeText(requireContext(), "Metin panoya kopyalandı", Toast.LENGTH_SHORT).show()
+    }
+
     private fun recognizeTextFromImage(resim: Uri) {
         try {
             val inputImage = resim.let { InputImage.fromFilePath(requireContext(), it) }
             val textTaskResult =
                 inputImage.let { textRecognizer.process(it) }.addOnSuccessListener { _text ->
-                    binding.recognizedTextEt.setText(_text.text)
+                    if (_text.text.isNotEmpty()){
+                        binding.recognizedTextEt.setText(_text.text)
+                    }else{
+                        binding.copyButton.visibility = View.GONE
+                        binding.textName.text = getString(R.string.gorsel_taninamadi_baslik)
+                        binding.recognizedTextEt.setText(getString(R.string.gorsel_taninamadi))
+                    }
+
                     //veriyi kullan burda
                 }.addOnFailureListener { ex ->
-                    //showToast("Lütfen Tekrar Deneyin.. !")
+                    requireActivity().showMessage("Lütfen Tekrar Deneyin")
                 }
         } catch (e: java.lang.Exception) {
-            //showToast("Bir Sorun Çıktı.. !")
+            requireActivity().showMessage("Hata")
         }
     }
-
-
-
 
 }

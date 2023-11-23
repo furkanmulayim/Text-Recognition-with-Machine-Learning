@@ -9,13 +9,14 @@
     <string name="secenek_aciklama_2">Kopyalama zahmetine girmeyin. Otomatik kopayalasın</string>
     <string name="home_page">Ana Menü</string>
     <string name="history">Geçmiş</string>
-
     <string name="cek">Fotoğraf Çek</string>
     <string name="yukle">Görsel Yükle</string>
     <string name="izin">Bu Özellik İçin İzne İhtiyacımız Var..</string>
     <string name="secilmedi">Görsel Seçilmedi!</string>
     <string name="cekilmedi">Fotoğraf Çekilmedi!</string>
     <string name="metin">Algılanan Metin</string>
+    <string name="gorsel_taninamadi">Üzgünüz, maalesef şu anki görüntüden metin tanımlayamıyoruz. Ancak umutsuzluğa kapılmayın! \n \nBelki de resmi biraz daha net bir şekilde çekmeyi düşünebilirsiniz. \n \nEğer bu da işe yaramazsa, başka bir görsel yüklemek ya da çekmek de harika bir seçenek olabilir.</string>
+    <string name="gorsel_taninamadi_baslik">Tanımlanamayan Metin 🥹</string>
 
 
 </resources>

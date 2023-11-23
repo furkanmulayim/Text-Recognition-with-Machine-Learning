@@ -22,14 +22,15 @@ import androidx.navigation.Navigation
 import com.furkanmulayim.gorseldenmetincikar.R
 import com.furkanmulayim.gorseldenmetincikar.databinding.FragmentHelloBinding
 import com.furkanmulayim.gorseldenmetincikar.utils.showMessage
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 
-@Suppress("UNUSED_EXPRESSION")
 class HelloFragment : Fragment() {
-
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
         private const val GALLERY_PERMISSION_REQUEST_CODE = 101
+        private const val CROP_IMAGE_REQUEST_CODE = 1001
     }
 
     private lateinit var cameraActivityResultLauncher: ActivityResultLauncher<Intent>
@@ -39,13 +40,12 @@ class HelloFragment : Fragment() {
 
     private lateinit var binding: FragmentHelloBinding
     private lateinit var viewModel: HelloViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_hello, container, false)
         viewModel = ViewModelProvider(this)[HelloViewModel::class.java]
-
         return binding.root
     }
 
@@ -83,47 +83,41 @@ class HelloFragment : Fragment() {
         requireContext().showMessage(message)
     }
 
-
-
     private fun cameraResultListener() {
         cameraActivityResultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 imageUriKaydet(imageUri.toString())
-
-                navigate(R.id.action_helloFragment2_to_cropFragment)
+                goingForCrop()
             } else {
                 message(getString(R.string.cekilmedi))
             }
         }
     }
 
-
-    private fun requestPermissionCamera() {
+    private fun requestPermission(permission: String, requestCode: Int) {
         if (ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.CAMERA
+                requireContext(), permission
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            val izin = ActivityCompat.shouldShowRequestPermissionRationale(
-                requireActivity(), Manifest.permission.CAMERA
+            val rationale = ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(), permission
             )
 
-            val izinGoster = ActivityCompat.requestPermissions(
+            val requestPermission = ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(Manifest.permission.CAMERA),
-                CAMERA_PERMISSION_REQUEST_CODE
+                arrayOf(permission),
+                requestCode
             )
-            // Eğer izin daha önce reddedildiyse
-            if (izin) {
-                // Daha sonra izni tekrar istiyoruz
-                izinGoster
+
+            if (rationale) {
+                requestPermission
             } else {
-                izinGoster
+                requestPermission
             }
         }
     }
-
 
     private fun pickImageCamera() {
         if (ContextCompat.checkSelfPermission(
@@ -153,7 +147,7 @@ class HelloFragment : Fragment() {
                     if (data != null) {
                         imageUri = data.data
                         imageUriKaydet(imageUri.toString())
-                        navigate(R.id.action_helloFragment2_to_cropFragment)
+                        goingForCrop()
                     }
                 } else {
                     message(getString(R.string.secilmedi))
@@ -162,30 +156,18 @@ class HelloFragment : Fragment() {
     }
 
     private fun requestPermissionGallery() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            val izin = ActivityCompat.shouldShowRequestPermissionRationale(
-                requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-
-            val izinGoster = ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                GALLERY_PERMISSION_REQUEST_CODE
-            )
-            // Eğer izin daha önce reddedildiyse
-            if (izin) {
-                // Daha sonra izni tekrar istiyoruz
-                izinGoster
-            } else {
-                // İzin daha önce hiç istenmediyse
-                izinGoster
-            }
-        }
+        requestPermission(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            GALLERY_PERMISSION_REQUEST_CODE
+        )
     }
 
+    private fun requestPermissionCamera() {
+        requestPermission(
+            Manifest.permission.CAMERA,
+            CAMERA_PERMISSION_REQUEST_CODE
+        )
+    }
 
     private fun pickImageGallery() {
         if (ContextCompat.checkSelfPermission(
@@ -201,5 +183,25 @@ class HelloFragment : Fragment() {
         }
     }
 
+    private fun goingForCrop() {
+        val cropImageIntent =
+            CropImage.activity(imageUri).setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true).getIntent(requireContext())
+        startActivityForResult(cropImageIntent, CROP_IMAGE_REQUEST_CODE)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CROP_IMAGE_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == Activity.RESULT_OK) {
+                val croppedUri = result.uri
+                imageUriKaydet(croppedUri.toString())
+                navigate(R.id.action_helloFragment2_to_recognitionFragment)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                requireActivity().showMessage("Resim Kırpılamadı Tekrar Deneyin! " + error.localizedMessage)
+            }
+        }
+    }
 }

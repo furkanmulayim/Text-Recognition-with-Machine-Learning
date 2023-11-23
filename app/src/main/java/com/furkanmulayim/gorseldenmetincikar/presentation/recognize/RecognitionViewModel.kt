@@ -21,7 +21,7 @@ class RecognitionViewModel(application: Application) : BaseViewModel(application
         return Uri.parse(sp.getImageUriInShared())
     }
 
-    fun navigate(view: View, pageId: NavDirections) {
+    fun navigate(view: View, pageId: Int) {
         Navigation.findNavController(view).navigate(pageId)
     }
 
