@@ -8,9 +8,13 @@
     <string name="secenek2">Görseldeki metni sizin için ayıklasın.</string>
     <string name="secenek_aciklama_2">Kopyalama zahmetine girmeyin. Otomatik kopayalasın</string>
     <string name="home_page">Ana Menü</string>
+    <string name="gorselden_metin_ayikla">Görselden Metin Ayıklayın</string>
+    <string name="yapay_zeka">Yapay Zekadan Yardım Alın</string>
     <string name="history">Geçmiş</string>
     <string name="cek">Fotoğraf Çek</string>
+    <string name="yapay_zeka_aciklama">Yapay zeka ile metinlerinizi imla kurallarına göre yeniden yazın. </string>
     <string name="yukle">Görsel Yükle</string>
+    <string name="ask">Deneyin</string>
     <string name="izin">Bu Özellik İçin İzne İhtiyacımız Var..</string>
     <string name="secilmedi">Görsel Seçilmedi!</string>
     <string name="cekilmedi">Fotoğraf Çekilmedi!</string>
