@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.GörseldenMetinÇıkar" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/smoothie_blue</item>
+        <item name="colorPrimary">#474765</item>
         <item name="colorPrimaryVariant">@color/background_darken</item>
         <item name="colorOnPrimary">@color/smoothie_blue</item>
         <!-- Secondary brand color. -->
