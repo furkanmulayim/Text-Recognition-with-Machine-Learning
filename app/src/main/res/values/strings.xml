@@ -3,14 +3,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="gorselden_metne">Görselden Metne</string>
     <string name="logo">logo</string>
-    <string name="secenek1">Fotoğraf çekin veya galerinizden yükleyin.</string>
+  <string name="secenek1">Fotoğraf çekin veya galerinizden yükleyin.</string>
     <string name="secenek_aciklama_1">Üçüncü taraf yazılımlarla paylaşmaz</string>
     <string name="secenek2">Görseldeki metni sizin için ayıklasın.</string>
     <string name="secenek_aciklama_2">Kopyalama zahmetine girmeyin. Otomatik kopayalasın</string>
-    <string name="home_page">Ana Menü</string>
     <string name="gorselden_metin_ayikla">Görselden Metin Ayıklayın</string>
     <string name="yapay_zeka">Yapay Zekadan Yardım Alın</string>
     <string name="history">Geçmiş</string>
+    <string name="home_page">Ana Menü</string>
     <string name="cek">Fotoğraf Çek</string>
     <string name="yapay_zeka_aciklama">Yapay zeka ile metinlerinizi imla kurallarına göre yeniden yazın. </string>
     <string name="yukle">Görsel Yükle</string>
@@ -22,5 +22,7 @@
     <string name="gorsel_taninamadi">Üzgünüz, maalesef şu anki görüntüden metin tanımlayamıyoruz. Ancak umutsuzluğa kapılmayın! \n \nBelki de resmi biraz daha net bir şekilde çekmeyi düşünebilirsiniz. \n \nEğer bu da işe yaramazsa, başka bir görsel yüklemek ya da çekmek de harika bir seçenek olabilir.</string>
     <string name="gorsel_taninamadi_baslik">Tanımlanamayan Metin 🥹</string>
 
+  <string name="talk">İmla Düzelt</string>
+  <string name="message">Bir Metin Gir ya da Buraya Basılı Tut..</string>
 
 </resources>

@@ -69,6 +69,10 @@ class HelloFragment : Fragment() {
         binding.yukleButton.setOnClickListener {
             pickImageGallery()
         }
+
+        binding.aiButton.setOnClickListener {
+            navigate(R.id.action_helloFragment2_to_storyFragment)
+        }
     }
 
     private fun navigate(action: Int) {
@@ -83,6 +87,29 @@ class HelloFragment : Fragment() {
         requireContext().showMessage(message)
     }
 
+
+    private fun requestPermission(permission: String, requestCode: Int) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(), permission
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val rationale = ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(), permission
+            )
+
+            val requestPermission = ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(permission), requestCode
+            )
+
+            if (rationale) {
+                requestPermission
+            } else {
+                requestPermission
+            }
+        }
+    }
+
+
     private fun cameraResultListener() {
         cameraActivityResultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -96,28 +123,37 @@ class HelloFragment : Fragment() {
         }
     }
 
-    private fun requestPermission(permission: String, requestCode: Int) {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(), permission
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            val rationale = ActivityCompat.shouldShowRequestPermissionRationale(
-                requireActivity(), permission
-            )
-
-            val requestPermission = ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(permission),
-                requestCode
-            )
-
-            if (rationale) {
-                requestPermission
-            } else {
-                requestPermission
-            }
+    private fun pickImageGallery() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
         }
+        galleryActivityResultLauncher.launch(intent)
     }
+
+    private fun galleryResultListener() {
+        galleryActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data = result.data
+                    if (data != null) {
+                        imageUri = data.data
+                        imageUriKaydet(imageUri.toString())
+                        goingForCrop()
+                    }
+                } else {
+                    message(getString(R.string.secilmedi))
+                }
+            }
+    }
+
+    private fun requestPermissionCamera() {
+        requestPermission(
+            Manifest.permission.CAMERA, CAMERA_PERMISSION_REQUEST_CODE
+        )
+    }
+
+
 
     private fun pickImageCamera() {
         if (ContextCompat.checkSelfPermission(
@@ -139,49 +175,6 @@ class HelloFragment : Fragment() {
         }
     }
 
-    private fun galleryResultListener() {
-        galleryActivityResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    val data = result.data
-                    if (data != null) {
-                        imageUri = data.data
-                        imageUriKaydet(imageUri.toString())
-                        goingForCrop()
-                    }
-                } else {
-                    message(getString(R.string.secilmedi))
-                }
-            }
-    }
-
-    private fun requestPermissionGallery() {
-        requestPermission(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            GALLERY_PERMISSION_REQUEST_CODE
-        )
-    }
-
-    private fun requestPermissionCamera() {
-        requestPermission(
-            Manifest.permission.CAMERA,
-            CAMERA_PERMISSION_REQUEST_CODE
-        )
-    }
-
-    private fun pickImageGallery() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            galleryActivityResultLauncher.launch(intent)
-        } else {
-            requestPermissionGallery()
-            message(getString(R.string.izin))
-        }
-    }
 
     private fun goingForCrop() {
         val cropImageIntent =
@@ -204,4 +197,6 @@ class HelloFragment : Fragment() {
             }
         }
     }
+
+
 }

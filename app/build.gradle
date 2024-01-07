@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'androidx.navigation.safeargs.kotlin'
+    id 'androidx.navigation.safeargs'
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
@@ -47,6 +47,7 @@ dependencies {
     def rxjava2Version = '2.3.0'
     def navVersion = '2.3.0'
     def fragmentVersion = '1.6.0'
+    def retrofitVersion = '2.8.1'
 
     // ROOM
     //noinspection GradleDependency
@@ -55,10 +56,27 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     //noinspection GradleDependency
     implementation "androidx.room:room-rxjava2:$rxjava2Version"
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+
+    //shimmer Effect
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    //Coroutine //noinspection GradleDependency
+    implementation "androidx.room:room-ktx:$roomVersion"
 
     //GOOGLE MACHİNE LEARNİNG KİT
     implementation 'com.google.mlkit:text-recognition:16.0.0'
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.0'
+
+    //OkHTTP
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     //NAVİGATİON
     // noinspection GradleDependency
@@ -74,6 +92,8 @@ dependencies {
 
     //foto blur
     implementation 'jp.wasabeef:blurry:4.0.1'
+
+    implementation "androidx.core:core-ktx:1.7.0"
 
     //noinspection GradleDependency
     implementation 'androidx.core:core-ktx:1.8.0'

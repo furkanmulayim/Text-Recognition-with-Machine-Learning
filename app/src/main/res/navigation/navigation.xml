@@ -15,21 +15,46 @@
         <action
             android:id="@+id/action_helloFragment2_to_recognitionFragment"
             app:destination="@id/recognitionFragment" />
+        <action
+            android:id="@+id/action_helloFragment2_to_storyFragment"
+            app:destination="@id/storyFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.furkanmulayim.gorseldenmetincikar.presentation.history.HistoryFragment"
-        android:label="HistoryFragment" >
+        android:label="fragment_history" >
         <action
             android:id="@+id/action_historyFragment_to_helloFragment2"
             app:destination="@id/helloFragment2" />
+        <action
+            android:id="@+id/action_historyFragment_to_detailHistoryFragment"
+            app:destination="@id/detailHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/recognitionFragment"
         android:name="com.furkanmulayim.gorseldenmetincikar.presentation.recognize.RecognitionFragment"
-        android:label="RecognitionFragment" >
+        android:label="fragment_recognition" >
         <action
             android:id="@+id/action_recognitionFragment_to_helloFragment2"
+            app:destination="@id/helloFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailHistoryFragment"
+        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.detail.DetailHistoryFragment"
+        android:label="DetailHistoryFragment" >
+        <argument
+            android:name="MetinId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_detailHistoryFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storyFragment"
+        android:name="com.furkanmulayim.gorseldenmetincikar.presentation.story.StoryFragment"
+        android:label="StoryFragment" >
+        <action
+            android:id="@+id/action_storyFragment_to_helloFragment2"
             app:destination="@id/helloFragment2" />
     </fragment>
 </navigation>

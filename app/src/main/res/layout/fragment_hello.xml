@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.furkanmulayim.gorseldenmetincikar.presentation.hello.HelloViewModel" />
@@ -27,7 +26,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/this_page"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,8 +100,6 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
-
             android:id="@+id/genel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,7 +192,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView2"
                         tools:ignore="SpUsage,TextSizeCheck" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -303,7 +299,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="SpUsage,TextSizeCheck" />
 
-
                     <Button
                         android:id="@+id/aiButton"
                         android:layout_width="wrap_content"
@@ -321,7 +316,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/cekButton" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -334,13 +328,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:background="@drawable/ai_png" />
-
-
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

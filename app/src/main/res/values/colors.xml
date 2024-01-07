@@ -11,9 +11,10 @@
     <color name="smoothie_purple">#686DBF</color>
     <color name="smoothie_purple2">#5A5FAC</color>
 
-    <!-- Text color -->
+    <!-- Txt color -->
     <color name="text_h900">#CECECE</color>
 
+    <color name="delete">#FF4E4E</color>
     <!-- Status bar color -->
     <color name="background_darken">#2C2C35</color>
     <color name="status_bar_color">#2C2C35</color>

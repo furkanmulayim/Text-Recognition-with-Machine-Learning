@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemm"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:layout_marginStart="20dp"
     android:layout_marginTop="5dp"
-    android:layout_marginEnd="20dp"
     android:layout_marginBottom="5dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginStart="12dp"
     android:background="@drawable/item_back"
     android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tarihBack"
         android:layout_width="50dp"
+        android:layout_gravity="center"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/gun"
@@ -27,7 +27,6 @@
             android:layout_gravity="top"
             android:fontFamily="@font/inter_bold"
             android:gravity="center"
-            android:text="27"
             android:textColor="@color/white"
             android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,29 +34,40 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/ay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="SEP"
             android:textColor="@color/white"
-            android:textSize="10dp"
+            android:textSize="12dp"
+            android:layout_marginTop="-4dp"
+            android:fontFamily="@font/inter_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gun" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/metin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:maxLines="3"
+        android:textColor="@color/text_h900"
+        android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/saat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
+        android:layout_gravity="top"
+        android:layout_marginEnd="9dp"
         android:fontFamily="@font/inter_light"
-        android:text="12:00"
+        android:paddingTop="5dp"
         android:textColor="#9292A5"
-        app:layout_constraintBottom_toBottomOf="@id/tarihBack"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="13dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

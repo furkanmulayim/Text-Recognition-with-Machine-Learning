@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.furkanmulayim.gorseldenmetincikar.domain.model.Metin
 import com.furkanmulayim.gorseldenmetincikar.R
 import com.furkanmulayim.gorseldenmetincikar.databinding.FragmentRecognitionBinding
 import com.furkanmulayim.gorseldenmetincikar.utils.showMessage
@@ -22,6 +23,11 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import jp.wasabeef.blurry.Blurry
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.Locale
 
 class RecognitionFragment : Fragment() {
 
@@ -69,31 +75,34 @@ class RecognitionFragment : Fragment() {
     }
 
     private fun navigate(action: Int) {
+        //sayfalar arası geçiş fonksiyonu
         viewModel.navigate(requireView(), action)
     }
 
     private fun copyText() {
+        //metni kopyalamak için fonksiyon
         val clipboardManager =
             activity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText("text", binding.recognizedTextEt.text)
         clipboardManager.setPrimaryClip(clipData)
-        Toast.makeText(requireContext(), "Metin panoya kopyalandı", Toast.LENGTH_SHORT).show()
+        requireActivity().showMessage("Metin Panoya Kopyalandı 📝")
     }
 
     private fun recognizeTextFromImage(resim: Uri) {
+        //Görüntüdeki metni tanımak için fonksiyon
         try {
             val inputImage = resim.let { InputImage.fromFilePath(requireContext(), it) }
             val textTaskResult =
                 inputImage.let { textRecognizer.process(it) }.addOnSuccessListener { _text ->
-                    if (_text.text.isNotEmpty()){
+                    if (_text.text.isNotEmpty()) {
+                        veritabaniKayit(_text.text)
                         binding.recognizedTextEt.setText(_text.text)
-                    }else{
+                    } else {
                         binding.copyButton.visibility = View.GONE
                         binding.textName.text = getString(R.string.gorsel_taninamadi_baslik)
                         binding.recognizedTextEt.setText(getString(R.string.gorsel_taninamadi))
                     }
 
-                    //veriyi kullan burda
                 }.addOnFailureListener { ex ->
                     requireActivity().showMessage("Lütfen Tekrar Deneyin")
                 }
@@ -102,4 +111,24 @@ class RecognitionFragment : Fragment() {
         }
     }
 
+    fun veritabaniKayit(metin: String) {
+        val bugununTarihi = LocalDate.now()
+        val suankiZaman = LocalTime.now()
+        val gununKacinciGunu = bugununTarihi.dayOfMonth.toString()
+        val ayAdi = bugununTarihi.month.getDisplayName(TextStyle.FULL, Locale("tr"))
+        val haftaninGunu = bugununTarihi.dayOfWeek.getDisplayName(TextStyle.FULL, Locale("tr"))
+        val saatVeDakika = suankiZaman.format(DateTimeFormatter.ofPattern("HH:mm"))
+
+        viewModel.metinList.add(
+            Metin(
+                gun = gununKacinciGunu,
+                ay = ayAdi,
+                hafta = haftaninGunu,
+                saat = saatVeDakika,
+                metin = metin
+            )
+        ).let {
+            viewModel.kayitBaslat()
+        }
+    }
 }

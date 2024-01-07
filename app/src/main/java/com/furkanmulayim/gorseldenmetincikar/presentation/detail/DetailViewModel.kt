@@ -1,10 +1,12 @@
-package com.furkanmulayim.gorseldenmetincikar.presentation.history
+package com.furkanmulayim.gorseldenmetincikar.presentation.detail
 
 import android.app.Application
+import android.util.MutableInt
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
+import com.furkanmulayim.gorseldenmetincikar.R
 import com.furkanmulayim.gorseldenmetincikar.data.service.metin.MetinDAO
 import com.furkanmulayim.gorseldenmetincikar.data.service.metin.MetinDatabase
 import com.furkanmulayim.gorseldenmetincikar.domain.model.Metin
@@ -12,35 +14,33 @@ import com.furkanmulayim.gorseldenmetincikar.presentation.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HistoryViewModel(application: Application) : BaseViewModel(application) {
+class DetailViewModel(application: Application) : BaseViewModel(application) {
 
-    val metinlist = MutableLiveData<List<Metin>>()
+    var metinId = MutableLiveData<Int>()
+    val metin = MutableLiveData<Metin?>()
 
     private val metinDao: MetinDAO = MetinDatabase(getApplication()).metinDao()
 
-    fun navigate(view: View, pageId: Int) {
-        Navigation.findNavController(view).navigate(pageId)
+    fun veriSil(id:Int, view:View, ){
+        deleteSQLiteDataFromRoom(id, view)
     }
 
-    fun verileriYukle() {
+    fun veriGetir(){
         getSQLiteDataFromRoom()
-    }
-
-    fun veriSil(id:Int){
-        deleteSQLiteDataFromRoom(id)
     }
 
     private fun getSQLiteDataFromRoom() {
       launch {
-            val dao = metinDao.getAllMetins()
-            metinlist.value = dao
+            val dao = metinId.value?.let { metinDao.getMetin(it) }
+            metin.value = dao
         }
     }
 
-    private fun deleteSQLiteDataFromRoom(id:Int) {
+    private fun deleteSQLiteDataFromRoom(id:Int,view:View) {
         launch {
             metinDao.deleteMetin(id)
-            getSQLiteDataFromRoom()
+        }.invokeOnCompletion {
+            Navigation.findNavController(view).navigate(R.id.action_detailHistoryFragment_to_historyFragment)
         }
     }
 
