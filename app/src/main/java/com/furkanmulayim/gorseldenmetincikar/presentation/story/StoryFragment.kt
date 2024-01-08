@@ -71,9 +71,7 @@ class StoryFragment : Fragment() {
     }
 
     private fun girilenMetinKontrol(): String {
-        return binding.girilenMetin.text.toString().trim()
-            .replace("\n", "")
-            .replace("\"", "").take(1000)
+        return binding.girilenMetin.text.toString().trim().replace("\n", "").replace("\"", "").take(1000)
     }
 
     private fun getClipboardText(): CharSequence {

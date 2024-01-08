@@ -1,6 +1,8 @@
 package com.furkanmulayim.gorseldenmetincikar.presentation.story
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanmulayim.gorseldenmetincikar.R
 import com.furkanmulayim.gorseldenmetincikar.model.Message
+import com.furkanmulayim.gorseldenmetincikar.utils.showMessage
 
 
 class StoryAdapter(
@@ -32,6 +35,13 @@ class StoryAdapter(
         val isim: TextView = itemView.findViewById(R.id.isim)
         val photo: ImageView = itemView.findViewById(R.id.photo)
         val lay: LinearLayout = itemView.findViewById(R.id.lay)
+    }
+
+    private fun copyText(textToCopy: String) {
+        val clipboardManager = contex.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", textToCopy)
+        clipboardManager.setPrimaryClip(clipData)
+        contex.showMessage("Metin Panoya Kopyalandı 📝")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -63,6 +73,13 @@ class StoryAdapter(
             holder.photo.visibility = View.VISIBLE
             holder.mBack.setBackgroundResource(R.drawable.ai_back)
         }
+
+
+        holder.message.setOnLongClickListener {
+            copyText(textToCopy = item.mesaj)
+            return@setOnLongClickListener true
+        }
+
     }
 
     override fun getItemCount(): Int {

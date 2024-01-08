@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.furkanmulayim.gorseldenmetincikar.R
@@ -54,6 +55,7 @@ class HelloFragment : Fragment() {
         binding.viewModel = viewModel
         cameraResultListener()
         galleryResultListener()
+        observResponse()
         clickListeners()
     }
 
@@ -71,8 +73,22 @@ class HelloFragment : Fragment() {
         }
 
         binding.aiButton.setOnClickListener {
-            navigate(R.id.action_helloFragment2_to_storyFragment)
+            viewModel.checkInternetConnection()
         }
+    }
+
+    private fun observResponse() {
+
+        viewModel.isInternetAvailable.observe(viewLifecycleOwner, Observer { connect ->
+            if (connect == true) {
+                //eğer bağlantı varsa
+                viewModel.baglantiVar(requireView())
+            } else {
+                //eğer bağlantı yoksa
+                requireActivity().showMessage("İnternet Bağlantısı Yok İnternete Bağlanarak Yeniden Deneyin...")
+            }
+
+        })
     }
 
     private fun navigate(action: Int) {
@@ -152,7 +168,6 @@ class HelloFragment : Fragment() {
             Manifest.permission.CAMERA, CAMERA_PERMISSION_REQUEST_CODE
         )
     }
-
 
 
     private fun pickImageCamera() {
