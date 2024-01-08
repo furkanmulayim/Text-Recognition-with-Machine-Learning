@@ -7,30 +7,30 @@ import android.net.NetworkCapabilities
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import com.furkanmulayim.gorseldenmetincikar.R
 import com.furkanmulayim.gorseldenmetincikar.presentation.BaseViewModel
 import com.furkanmulayim.gorseldenmetincikar.utils.SharedPrefs
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-class HelloViewModel(application: Application): BaseViewModel(application) {
+class HelloViewModel(application: Application) : BaseViewModel(application) {
 
     private var sp = SharedPrefs(getApplication())
     private val _isInternetAvailable = MutableLiveData<Boolean>()
     val isInternetAvailable: LiveData<Boolean> get() = _isInternetAvailable
 
-     fun checkInternetConnection() {
+    fun checkInternetConnection() {
         val connectivityManager =
             getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetwork
-        val networkCapabilities = activeNetwork?.let { connectivityManager.getNetworkCapabilities(it) }
+        val networkCapabilities =
+            activeNetwork?.let { connectivityManager.getNetworkCapabilities(it) }
 
-        _isInternetAvailable.value = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        _isInternetAvailable.value =
+            networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
+
     fun baglantiVar(view: View) {
-            Navigation.findNavController(view).navigate(R.id.action_helloFragment2_to_storyFragment)
+        Navigation.findNavController(view).navigate(R.id.action_helloFragment2_to_storyFragment)
     }
 
 
@@ -38,7 +38,7 @@ class HelloViewModel(application: Application): BaseViewModel(application) {
         Navigation.findNavController(view).navigate(pageId)
     }
 
-    fun gorselUriKaydet(imageUri: String, ) {
+    fun gorselUriKaydet(imageUri: String) {
         sp.saveImageLocation(imageUri)
     }
 

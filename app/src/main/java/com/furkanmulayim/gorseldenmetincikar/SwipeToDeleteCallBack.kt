@@ -1,22 +1,21 @@
 package com.furkanmulayim.gorseldenmetincikar
+
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.furkanmulayim.gorseldenmetincikar.presentation.history.HistoryAdapter
 
-class SwipeToDeleteCallback(private val adapter: HistoryAdapter,private val ct:Context) :
+class SwipeToDeleteCallback(private val adapter: HistoryAdapter, private val ct: Context) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
 
     private val backgroundPaint = Paint().apply {
 
-        color = ContextCompat.getColor(ct,R.color.delete)
+        color = ContextCompat.getColor(ct, R.color.delete)
         style = Paint.Style.FILL
 
     }
@@ -62,21 +61,21 @@ class SwipeToDeleteCallback(private val adapter: HistoryAdapter,private val ct:C
 
         // Silme ikonunu eklemek için viewHolder.itemView'i kullanın
         val icon = ContextCompat.getDrawable(ct, R.drawable.trash)
-            if (icon != null) {
-                val iconHeight = 80
-                val iconWidth = 80
+        if (icon != null) {
+            val iconHeight = 80
+            val iconWidth = 80
 
-                val iconTop = itemView.top + (itemHeight - iconHeight) / 2
-                val iconBottom = iconTop + iconHeight
+            val iconTop = itemView.top + (itemHeight - iconHeight) / 2
+            val iconBottom = iconTop + iconHeight
 
-                // İkona sağ kenar boşluğunu ekleyin
-                val iconLeft = itemView.right - iconMargin - iconWidth
-                val iconRight = itemView.right - iconMargin
+            // İkona sağ kenar boşluğunu ekleyin
+            val iconLeft = itemView.right - iconMargin - iconWidth
+            val iconRight = itemView.right - iconMargin
 
-                // İkonu çizin
-                icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-                icon.draw(c)
-            }
+            // İkonu çizin
+            icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+            icon.draw(c)
+        }
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }

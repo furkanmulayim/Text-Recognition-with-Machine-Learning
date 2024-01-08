@@ -1,6 +1,5 @@
 package com.furkanmulayim.gorseldenmetincikar.data.service.metin
 
-import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
 import com.furkanmulayim.gorseldenmetincikar.domain.model.Metin
 

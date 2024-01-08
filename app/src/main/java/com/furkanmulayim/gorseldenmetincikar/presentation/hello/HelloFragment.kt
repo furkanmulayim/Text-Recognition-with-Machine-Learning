@@ -17,7 +17,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.furkanmulayim.gorseldenmetincikar.R
@@ -26,11 +25,11 @@ import com.furkanmulayim.gorseldenmetincikar.utils.showMessage
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 
+@Suppress("DEPRECATION")
 class HelloFragment : Fragment() {
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
-        private const val GALLERY_PERMISSION_REQUEST_CODE = 101
         private const val CROP_IMAGE_REQUEST_CODE = 1001
     }
 
@@ -79,7 +78,7 @@ class HelloFragment : Fragment() {
 
     private fun observResponse() {
 
-        viewModel.isInternetAvailable.observe(viewLifecycleOwner, Observer { connect ->
+        viewModel.isInternetAvailable.observe(viewLifecycleOwner) { connect ->
             if (connect == true) {
                 //eğer bağlantı varsa
                 viewModel.baglantiVar(requireView())
@@ -88,7 +87,7 @@ class HelloFragment : Fragment() {
                 requireActivity().showMessage("İnternet Bağlantısı Yok İnternete Bağlanarak Yeniden Deneyin...")
             }
 
-        })
+        }
     }
 
     private fun navigate(action: Int) {
@@ -198,6 +197,7 @@ class HelloFragment : Fragment() {
         startActivityForResult(cropImageIntent, CROP_IMAGE_REQUEST_CODE)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CROP_IMAGE_REQUEST_CODE) {

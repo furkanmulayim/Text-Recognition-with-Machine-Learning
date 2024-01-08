@@ -12,7 +12,6 @@ import com.furkanmulayim.gorseldenmetincikar.presentation.BaseViewModel
 import com.furkanmulayim.gorseldenmetincikar.utils.SharedPrefs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.sql.SQLOutput
 
 class RecognitionViewModel(application: Application) : BaseViewModel(application) {
 
@@ -30,7 +29,8 @@ class RecognitionViewModel(application: Application) : BaseViewModel(application
     fun navigate(view: View, pageId: Int) {
         Navigation.findNavController(view).navigate(pageId)
     }
-    fun kayitBaslat(){
+
+    fun kayitBaslat() {
         diseaseDepolaSQLite(metinList)
     }
 

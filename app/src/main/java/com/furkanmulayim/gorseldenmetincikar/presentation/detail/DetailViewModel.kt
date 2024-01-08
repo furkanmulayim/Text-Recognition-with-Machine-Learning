@@ -1,17 +1,14 @@
 package com.furkanmulayim.gorseldenmetincikar.presentation.detail
 
 import android.app.Application
-import android.util.MutableInt
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.furkanmulayim.gorseldenmetincikar.R
 import com.furkanmulayim.gorseldenmetincikar.data.service.metin.MetinDAO
 import com.furkanmulayim.gorseldenmetincikar.data.service.metin.MetinDatabase
 import com.furkanmulayim.gorseldenmetincikar.domain.model.Metin
 import com.furkanmulayim.gorseldenmetincikar.presentation.BaseViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailViewModel(application: Application) : BaseViewModel(application) {
@@ -21,29 +18,29 @@ class DetailViewModel(application: Application) : BaseViewModel(application) {
 
     private val metinDao: MetinDAO = MetinDatabase(getApplication()).metinDao()
 
-    fun veriSil(id:Int, view:View, ){
+    fun veriSil(id: Int, view: View) {
         deleteSQLiteDataFromRoom(id, view)
     }
 
-    fun veriGetir(){
+    fun veriGetir() {
         getSQLiteDataFromRoom()
     }
 
     private fun getSQLiteDataFromRoom() {
-      launch {
+        launch {
             val dao = metinId.value?.let { metinDao.getMetin(it) }
             metin.value = dao
         }
     }
 
-    private fun deleteSQLiteDataFromRoom(id:Int,view:View) {
+    private fun deleteSQLiteDataFromRoom(id: Int, view: View) {
         launch {
             metinDao.deleteMetin(id)
         }.invokeOnCompletion {
-            Navigation.findNavController(view).navigate(R.id.action_detailHistoryFragment_to_historyFragment)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_detailHistoryFragment_to_historyFragment)
         }
     }
-
 
 
 }

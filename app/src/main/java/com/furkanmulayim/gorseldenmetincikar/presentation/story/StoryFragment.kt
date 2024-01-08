@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +46,7 @@ class StoryFragment : Fragment() {
 
     private fun clickListener() {
         binding.sorButton.setOnClickListener {
-            val metin:String = girilenMetinKontrol()
+            val metin: String = girilenMetinKontrol()
             if (metin.isNotEmpty()) {
                 sendMessageSetScreen(metin)
                 //vm.messageList.add(Message("afaefwe",true))
@@ -71,7 +70,8 @@ class StoryFragment : Fragment() {
     }
 
     private fun girilenMetinKontrol(): String {
-        return binding.girilenMetin.text.toString().trim().replace("\n", "").replace("\"", "").take(1000)
+        return binding.girilenMetin.text.toString().trim().replace("\n", "").replace("\"", "")
+            .take(1000)
     }
 
     private fun getClipboardText(): CharSequence {
@@ -100,7 +100,7 @@ class StoryFragment : Fragment() {
     }
 
     private fun observResponse() {
-        vm.dataGeldiMi.observe(viewLifecycleOwner, Observer {
+        vm.dataGeldiMi.observe(viewLifecycleOwner) {
             it.let {
                 storyAdapter.updateList(vm.messageList)
                 binding.storyRcyc.scrollToPosition(vm.messageList.size - 1)
@@ -108,7 +108,7 @@ class StoryFragment : Fragment() {
                 binding.shimmerFrameLayout.stopShimmer()
                 binding.sorButton.isEnabled = true
             }
-        })
+        }
     }
 
     private fun setNavigation(act: Int) {
